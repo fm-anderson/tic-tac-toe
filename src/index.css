@@ -4,3 +4,14 @@
     fantasy --default,
     dim --prefersdark;
 }
+
+.bg-base-200 .playerx,
+.bg-base-200 .playero {
+  transition: transform 0.3s ease-in-out;
+  transform: scale(0);
+}
+
+.bg-base-200 .playerx[data-show="true"],
+.bg-base-200 .playero[data-show="true"] {
+  transform: scale(1);
+}

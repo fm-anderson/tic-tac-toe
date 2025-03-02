@@ -2,12 +2,12 @@
   {
     "name": "playerX",
     "icon": "IconX",
-    "style": "text-primary"
+    "style": "playerx text-primary"
   },
   {
     "name": "playerO",
     "icon": "IconCircle",
-    "style": "text-secondary"
+    "style": "playero text-secondary"
   },
   {
     "name": "playerNull",
