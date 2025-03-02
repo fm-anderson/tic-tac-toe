@@ -1,0 +1,17 @@
+[
+  {
+    "name": "playerX",
+    "icon": "IconX",
+    "style": "text-primary"
+  },
+  {
+    "name": "playerO",
+    "icon": "IconCircle",
+    "style": "text-secondary"
+  },
+  {
+    "name": "playerNull",
+    "icon": "IconLoaderQuarter",
+    "style": "opacity-0"
+  }
+]
