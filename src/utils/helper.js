@@ -33,3 +33,14 @@ export const updateWinner = (currentPlayer, opponentMoves, setWinner) => {
   }
   return false;
 };
+
+export const updatePlayerMoves = (i, playerMoves, setPlayerMoves, newBoard) => {
+  const newPlayerMoves = [...playerMoves, i];
+  setPlayerMoves(newPlayerMoves);
+
+  if (newPlayerMoves.length === 4) {
+    const removedIndex = newPlayerMoves[0];
+    newBoard[removedIndex] = null;
+    setPlayerMoves(newPlayerMoves.slice(1));
+  }
+};

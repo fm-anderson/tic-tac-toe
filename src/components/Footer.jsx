@@ -1,9 +1,9 @@
 import { IconPlayerPlay, IconRotate } from "@tabler/icons-react";
 
-function Footer({ startGame, resetGame, currentPlayer }) {
+function Footer({ resetGame, currentPlayer, setIsModalOpen }) {
   return (
     <div className="dock">
-      <button onClick={startGame} disabled={currentPlayer}>
+      <button onClick={() => setIsModalOpen(true)} disabled={currentPlayer}>
         <IconPlayerPlay stroke={2} />
         <span className="dock-label">Start Game</span>
       </button>

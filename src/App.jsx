@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { updateWinner } from "./utils/helper";
+import { updatePlayerMoves, updateWinner } from "./utils/helper";
 import Square from "./components/square";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import SelectPlayer from "./components/SelectPlayer";
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null));
@@ -10,6 +11,7 @@ function App() {
   const [playerOMoves, setPlayerOMoves] = useState([]);
   const [currentPlayer, setCurrentPlayer] = useState(null);
   const [winner, setWinner] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (currentPlayer === "playerO") {
@@ -18,6 +20,21 @@ function App() {
       updateWinner(currentPlayer, playerOMoves, setWinner);
     }
   }, [playerXMoves, playerOMoves, currentPlayer, winner, setWinner]);
+
+  const resetGame = () => {
+    setBoard(Array(9).fill(null));
+    setPlayerXMoves([]);
+    setPlayerOMoves([]);
+    setCurrentPlayer("playerX");
+    setWinner(null);
+    // TODO: OPEN MODAL AND CHOOSE PLAYER INSTEAD OF SELECTING "playerX"
+  };
+
+  // const startGame = () => {
+  // TODO:
+  //   setCurrentPlayer(player);
+  //   setIsModalOpen(false);
+  // };
 
   const handleCellClick = (index) => {
     if (board[index] || winner || !currentPlayer) {
@@ -28,39 +45,13 @@ function App() {
     newBoard[index] = currentPlayer;
 
     if (currentPlayer === "playerX") {
-      const newPlayerXMoves = [...playerXMoves, index];
-      setPlayerXMoves(newPlayerXMoves);
-
-      if (newPlayerXMoves.length === 4) {
-        const removedIndex = newPlayerXMoves[0];
-        newBoard[removedIndex] = null;
-        setPlayerXMoves(newPlayerXMoves.slice(1));
-      }
+      updatePlayerMoves(index, playerXMoves, setPlayerXMoves, newBoard);
     } else {
-      const newPlayerOMoves = [...playerOMoves, index];
-      setPlayerOMoves(newPlayerOMoves);
-
-      if (newPlayerOMoves.length === 4) {
-        const removedIndex = newPlayerOMoves[0];
-        newBoard[removedIndex] = null;
-        setPlayerOMoves(newPlayerOMoves.slice(1));
-      }
+      updatePlayerMoves(index, playerOMoves, setPlayerOMoves, newBoard);
     }
 
     setBoard(newBoard);
     setCurrentPlayer(currentPlayer === "playerX" ? "playerO" : "playerX");
-  };
-
-  const resetGame = () => {
-    setBoard(Array(9).fill(null));
-    setPlayerXMoves([]);
-    setPlayerOMoves([]);
-    setCurrentPlayer("playerX");
-    setWinner(null);
-  };
-
-  const startGame = () => {
-    setCurrentPlayer("playerX");
   };
 
   return (
@@ -79,11 +70,17 @@ function App() {
             </div>
           ))}
         </div>
+        <SelectPlayer
+          setCurrentPlayer={setCurrentPlayer}
+          setIsModalOpen={setIsModalOpen}
+          isModalOpen={isModalOpen}
+        />
       </div>
+
       <Footer
-        startGame={startGame}
         resetGame={resetGame}
         currentPlayer={currentPlayer}
+        setIsModalOpen={setIsModalOpen}
       />
     </div>
   );
