@@ -1,34 +1,26 @@
 import { useState, useEffect } from "react";
+import { updateWinner } from "./utils/helper";
 import Square from "./components/square";
-import { winningCombos } from "./utils/consts";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [playerXMoves, setPlayerXMoves] = useState([]);
   const [playerOMoves, setPlayerOMoves] = useState([]);
-  const [currentPlayer, setCurrentPlayer] = useState("playerX");
+  const [currentPlayer, setCurrentPlayer] = useState(null);
   const [winner, setWinner] = useState(null);
 
-  const checkWinner = (moves) => {
-    for (const combo of winningCombos) {
-      const [a, b, c] = combo;
-      if (moves.includes(a) && moves.includes(b) && moves.includes(c)) {
-        console.log("We have a winner! ⮕");
-        return true;
-      }
-    }
-    return false;
-  };
-
   useEffect(() => {
-    if (winner) {
-      console.log(`Player ${winner === "playerX" ? "X" : "O"} wins!`);
-      // resetGame();
+    if (currentPlayer === "playerO") {
+      updateWinner(currentPlayer, playerXMoves, setWinner);
+    } else if (currentPlayer === "playerX") {
+      updateWinner(currentPlayer, playerOMoves, setWinner);
     }
-  }, [winner]);
+  }, [playerXMoves, playerOMoves, currentPlayer, winner, setWinner]);
 
   const handleCellClick = (index) => {
-    if (board[index] || winner) {
+    if (board[index] || winner || !currentPlayer) {
       return;
     }
 
@@ -67,17 +59,32 @@ function App() {
     setWinner(null);
   };
 
+  const startGame = () => {
+    setCurrentPlayer("playerX");
+  };
+
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="grid grid-cols-3 gap-3">
-        {board.map((item, index) => {
-          return (
+    <div className="flex h-screen flex-col items-center">
+      <Navbar />
+      <div className="my-auto">
+        {winner && (
+          <div className="mb-4 text-2xl font-bold">
+            {winner && `Player ${winner === "playerX" ? "X" : "O"} wins!`}
+          </div>
+        )}
+        <div className="grid grid-cols-3 gap-3 p-3">
+          {board.map((item, index) => (
             <div key={index} onClick={() => handleCellClick(index)}>
               <Square value={item} />
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
+      <Footer
+        startGame={startGame}
+        resetGame={resetGame}
+        currentPlayer={currentPlayer}
+      />
     </div>
   );
 }
