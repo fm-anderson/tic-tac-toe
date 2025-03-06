@@ -13,7 +13,6 @@ export const checkWinner = (moves) => {
   for (const combo of winningCombos) {
     const [a, b, c] = combo;
     if (moves.includes(a) && moves.includes(b) && moves.includes(c)) {
-      console.log("We have a winner!");
       return true;
     }
   }
@@ -27,7 +26,6 @@ export const updateWinner = (currentPlayer, opponentMoves, setWinner) => {
   if (movesToCheck.length >= 3) {
     if (checkWinner(movesToCheck)) {
       setWinner(playerToCheck);
-      console.log(`${playerToCheck} wins!`);
       return true;
     }
   }

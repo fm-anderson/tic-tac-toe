@@ -1,4 +1,8 @@
-import { IconPlayerPlay, IconRotate } from "@tabler/icons-react";
+import {
+  IconPlayerPlay,
+  IconRotate,
+  IconBrandGithub,
+} from "@tabler/icons-react";
 
 function Footer({ resetGame, currentPlayer, setIsModalOpen, winner }) {
   return (
@@ -14,6 +18,14 @@ function Footer({ resetGame, currentPlayer, setIsModalOpen, winner }) {
           {winner ? "Play Again" : "Reset Game"}
         </span>
       </button>
+      <a
+        href="https://github.com/fm-anderson"
+        className="dock-label"
+        target="_blank"
+      >
+        <IconBrandGithub stroke={2} />
+        <span className="dock-label">fm-anderson</span>
+      </a>
     </div>
   );
 }

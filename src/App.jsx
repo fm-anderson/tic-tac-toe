@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { updatePlayerMoves, updateWinner } from "./utils/helper";
+import SelectPlayer from "./components/SelectPlayer";
 import Square from "./components/Square";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import SelectPlayer from "./components/SelectPlayer";
 import Score from "./components/Score";
 
 function App() {
