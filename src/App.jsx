@@ -10,6 +10,8 @@ function App() {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [playerXMoves, setPlayerXMoves] = useState([]);
   const [playerOMoves, setPlayerOMoves] = useState([]);
+  const [playerXPoints, setPlayerXPoints] = useState(0);
+  const [playerOPoints, setPlayerOPoints] = useState(0);
   const [currentPlayer, setCurrentPlayer] = useState(null);
   const [winner, setWinner] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,8 +19,10 @@ function App() {
   useEffect(() => {
     if (currentPlayer === "playerO") {
       updateWinner(currentPlayer, playerXMoves, setWinner);
+      if (winner) setPlayerXPoints(playerXPoints + 1);
     } else if (currentPlayer === "playerX") {
       updateWinner(currentPlayer, playerOMoves, setWinner);
+      if (winner) setPlayerOPoints(playerOPoints + 1);
     }
   }, [playerXMoves, playerOMoves, currentPlayer, winner, setWinner]);
 
@@ -53,7 +57,11 @@ function App() {
       <Navbar />
       <div className="my-auto p-3">
         <div className="grid grid-cols-2">
-          <Score currentPlayer={currentPlayer} />
+          <Score
+            currentPlayer={currentPlayer}
+            playerXPoints={playerXPoints}
+            playerOPoints={playerOPoints}
+          />
         </div>
         <div className="mt-10 grid grid-cols-3 gap-3">
           {board.map((item, index) => (

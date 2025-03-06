@@ -1,6 +1,6 @@
 import { IconX, IconCircle } from "@tabler/icons-react";
 
-function Score({ currentPlayer }) {
+function Score({ currentPlayer, playerXPoints, playerOPoints }) {
   return (
     <>
       <div className="rounded-box border-base-content/5 bg-base-100 overflow-x-auto border shadow-md">
@@ -10,13 +10,17 @@ function Score({ currentPlayer }) {
               <td>
                 <IconX stroke={3} />
               </td>
-              <td className="text-end text-xl font-semibold">0</td>
+              <td className="text-end text-xl font-semibold">
+                {playerXPoints}
+              </td>
             </tr>
             <tr>
               <td>
                 <IconCircle stroke={3} />
               </td>
-              <td className="text-end text-xl font-semibold">0</td>
+              <td className="text-end text-xl font-semibold">
+                {playerOPoints}
+              </td>
             </tr>
           </tbody>
         </table>
