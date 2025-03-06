@@ -1,7 +1,7 @@
 import { IconX, IconCircle } from "@tabler/icons-react";
 
 function SelectPlayer({ setCurrentPlayer, setIsModalOpen, isModalOpen }) {
-  const setPlayerAndStartGame = (player) => {
+  const startGame = (player) => {
     setCurrentPlayer(player);
     setIsModalOpen(false);
   };
@@ -21,13 +21,13 @@ function SelectPlayer({ setCurrentPlayer, setIsModalOpen, isModalOpen }) {
           <span className="flex gap-2">
             <button
               className="btn btn-lg btn-square text-primary"
-              onClick={() => setPlayerAndStartGame("playerX")}
+              onClick={() => startGame("playerX")}
             >
               <IconX stroke={3} />
             </button>
             <button
               className="btn btn-lg btn-square text-secondary"
-              onClick={() => setPlayerAndStartGame("playerO")}
+              onClick={() => startGame("playerO")}
             >
               <IconCircle stroke={3} />
             </button>

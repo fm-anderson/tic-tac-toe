@@ -18,7 +18,7 @@ function Square({ value }) {
   }, [value]);
 
   return (
-    <div className="bg-base-200 p-4">
+    <div className="bg-base-200 rounded-2xl p-4 shadow-md">
       <IconComponent
         stroke={2}
         size={75}

@@ -3,11 +3,12 @@
   themes:
     fantasy --default,
     dim --prefersdark;
+  logs: false;
 }
 
 .bg-base-200 .playerx,
 .bg-base-200 .playero {
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.15s ease-in-out;
   transform: scale(0);
 }
 

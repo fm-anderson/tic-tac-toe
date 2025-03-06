@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { updatePlayerMoves, updateWinner } from "./utils/helper";
-import Square from "./components/square";
+import Square from "./components/Square";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import SelectPlayer from "./components/SelectPlayer";
+import Score from "./components/Score";
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null));
@@ -25,16 +26,9 @@ function App() {
     setBoard(Array(9).fill(null));
     setPlayerXMoves([]);
     setPlayerOMoves([]);
-    setCurrentPlayer("playerX");
     setWinner(null);
-    // TODO: OPEN MODAL AND CHOOSE PLAYER INSTEAD OF SELECTING "playerX"
+    setCurrentPlayer("playerX");
   };
-
-  // const startGame = () => {
-  // TODO:
-  //   setCurrentPlayer(player);
-  //   setIsModalOpen(false);
-  // };
 
   const handleCellClick = (index) => {
     if (board[index] || winner || !currentPlayer) {
@@ -57,13 +51,11 @@ function App() {
   return (
     <div className="flex h-screen flex-col items-center">
       <Navbar />
-      <div className="my-auto">
-        {winner && (
-          <div className="mb-4 text-2xl font-bold">
-            {winner && `Player ${winner === "playerX" ? "X" : "O"} wins!`}
-          </div>
-        )}
-        <div className="grid grid-cols-3 gap-3 p-3">
+      <div className="my-auto p-3">
+        <div className="grid grid-cols-2">
+          <Score currentPlayer={currentPlayer} />
+        </div>
+        <div className="mt-10 grid grid-cols-3 gap-3">
           {board.map((item, index) => (
             <div key={index} onClick={() => handleCellClick(index)}>
               <Square value={item} />
@@ -81,6 +73,7 @@ function App() {
         resetGame={resetGame}
         currentPlayer={currentPlayer}
         setIsModalOpen={setIsModalOpen}
+        winner={winner}
       />
     </div>
   );
